@@ -1,0 +1,174 @@
+endpoints:
+  # 사용자 목록 조회
+  - path: /api/users
+    method: GET
+    status: 200
+    response:
+      data:
+        - id: 1
+          name: "홍길동"
+          email: "hong@example.com"
+        - id: 2
+          name: "김철수"
+          email: "kim@example.com"
+        - id: 3
+          name: "이영희"
+          email: "lee@example.com"
+      meta:
+        total: 3
+        page: 1
+        limit: 10
+
+  # 사용자 생성
+  - path: /api/users
+    method: POST
+    status: 201
+    response:
+      message: "사용자가 생성되었습니다"
+      user:
+        id: "{{randomId}}"
+        name: "{{body.name}}"
+        email: "{{body.email}}"
+        createdAt: "{{now}}"
+
+  # 특정 사용자 조회
+  - path: /api/users/:id
+    method: GET
+    status: 200
+    response:
+      template:
+        id: "{{params.id}}"
+        name: "사용자 {{params.id}}"
+        email: "user{{params.id}}@example.com"
+        details:
+          registeredAt: "2023-01-01"
+          lastLogin: "{{now}}"
+
+  # 특정 사용자 수정
+  - path: /api/users/:id
+    method: PUT
+    status: 200
+    response:
+      template:
+        id: "{{params.id}}"
+        name: "{{body.name}}"
+        email: "{{body.email}}"
+        updatedAt: "{{now}}"
+        message: "사용자 정보가 업데이트되었습니다"
+
+  # 특정 사용자 삭제
+  - path: /api/users/:id
+    method: DELETE
+    status: 204
+    response: null
+
+  # 사용자 검색
+  - path: /api/users/search
+    method: GET
+    status: 200
+    response:
+      template:
+        query: "{{query.q}}"
+        results:
+          - id: 101
+            name: "검색 결과 1 for {{query.q}}"
+          - id: 102
+            name: "검색 결과 2 for {{query.q}}"
+        filters:
+          applied: "{{query.filter}}"
+
+  # 제품 목록 조회
+  - path: /api/products
+    method: GET
+    status: 200
+    delay: 500 # 500ms 지연 응답
+    response:
+      data:
+        - id: 1
+          name: "스마트폰"
+          price: 1000000
+        - id: 2
+          name: "노트북"
+          price: 1500000
+        - id: 3
+          name: "태블릿"
+          price: 800000
+      meta:
+        total: 3
+
+  # 에러 예제
+  - path: /api/error
+    method: GET
+    status: 500
+    response:
+      error: "서버 내부 오류"
+      code: "INTERNAL_ERROR"
+      timestamp: "{{now}}"
+
+  # 인증 실패 예제
+  - path: /api/auth
+    method: GET
+    status: 401
+    response:
+      error: "인증이 필요합니다"
+      code: "UNAUTHORIZED"
+
+  # 확률 기반 성공/실패 예제
+  - path: /api/random/success
+    method: GET
+    probability: 70 # 70% 확률로 성공 응답
+    responses:
+      success:
+        status: 200
+        response:
+          message: "요청이 성공했습니다!"
+          success: true
+          timestamp: "{{now}}"
+      failure:
+        status: 500
+        response:
+          error: "랜덤 오류가 발생했습니다"
+          success: false
+          code: "RANDOM_ERROR"
+          timestamp: "{{now}}"
+
+  # 확률 기반 결제 성공/실패 예제
+  - path: /api/payment/process
+    method: POST
+    probability: 80 # 80% 확률로 성공 응답
+    responses:
+      success:
+        status: 200
+        response:
+          message: "결제가 성공적으로 처리되었습니다"
+          transactionId: "{{randomId}}"
+          amount: "{{body.amount}}"
+          status: "completed"
+          timestamp: "{{now}}"
+      failure:
+        status: 400
+        response:
+          error: "결제 처리 중 오류가 발생했습니다"
+          errorCode: "PAYMENT_FAILED"
+          details: "카드 승인이 거부되었습니다"
+          timestamp: "{{now}}"
+
+  # 확률 기반 네트워크 지연/타임아웃 예제
+  - path: /api/network/test
+    method: GET
+    probability: 50 # 50% 확률로 성공 응답
+    responses:
+      success:
+        status: 200
+        delay: 200 # 빠른 응답
+        response:
+          message: "네트워크 연결이 양호합니다"
+          latency: "low"
+          timestamp: "{{now}}"
+      failure:
+        status: 408 # Request Timeout
+        delay: 3000 # 느린 응답
+        response:
+          error: "요청 시간이 초과되었습니다"
+          latency: "high"
+          timestamp: "{{now}}"

@@ -1,0 +1,694 @@
+:root {
+  /* 모던한 색상 팔레트 */
+  --primary-color: #6366f1;
+  --primary-dark: #4f46e5;
+  --primary-light: #e0e7ff;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --danger-color: #ef4444;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --radius-sm: 0.25rem;
+  --radius: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --purple-400: #a78bfa;
+  --purple-500: #8b5cf6;
+  --purple-600: #7c3aed;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", "Pretendard", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--gray-800);
+  background-color: var(--gray-50);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* 헤더 스타일 */
+header {
+  background-color: white;
+  padding: 1rem 2rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+h1 {
+  color: var(--gray-900);
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+h1 span {
+  color: var(--primary-color);
+  font-weight: 800;
+}
+
+h2 {
+  margin-bottom: 1.25rem;
+  color: var(--gray-800);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: 1rem;
+  letter-spacing: -0.025em;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  padding: 1.5rem;
+  gap: 1.5rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* 사이드바 스타일 */
+.sidebar {
+  width: 260px;
+  background: white;
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-100);
+  position: sticky;
+  top: 5rem;
+  height: calc(100vh - 7rem);
+  overflow-y: auto;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+#endpoints,
+#endpoint-detail,
+#logs {
+  background: white;
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-100);
+  transition: all 0.3s ease;
+}
+
+#endpoints:hover,
+#endpoint-detail:hover,
+#logs:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* 테이블 스타일 */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 1rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+th,
+td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+th {
+  background-color: var(--gray-50);
+  font-weight: 600;
+  color: var(--gray-700);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover {
+  background-color: var(--gray-50);
+}
+
+/* 메서드 배지 */
+.method {
+  font-weight: 600;
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-sm);
+  color: white;
+  text-align: center;
+  min-width: 70px;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.method-get {
+  background-color: var(--primary-color);
+}
+.method-post {
+  background-color: var(--success-color);
+}
+.method-put {
+  background-color: var(--warning-color);
+}
+.method-delete {
+  background-color: var(--danger-color);
+}
+.method-patch {
+  background-color: #8b5cf6;
+}
+
+#logs {
+  margin-top: auto;
+}
+
+#log-output {
+  background: var(--gray-100);
+  padding: 1rem;
+  max-height: 200px;
+  overflow-y: auto;
+  border-radius: var(--radius);
+  font-family: "SF Mono", "Consolas", "Monaco", monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  color: var(--gray-700);
+  border: 1px solid var(--gray-200);
+}
+
+/* 서버 상태 표시 */
+.server-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--gray-100);
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+#status-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.connected {
+  background-color: var(--success-color);
+}
+
+.connected:after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: rgba(16, 185, 129, 0.2);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.7;
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+.disconnected {
+  background-color: var(--danger-color);
+}
+
+/* 버튼 스타일 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: var(--gray-700);
+  border: 1px solid var(--gray-300);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  gap: 0.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn:hover {
+  background-color: var(--gray-50);
+  border-color: var(--gray-400);
+  transform: translateY(-1px);
+}
+
+.btn.primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.btn.primary:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+.btn.small {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+.controls {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* 엔드포인트 내비게이션 */
+.endpoints-nav {
+  margin-top: 1.5rem;
+}
+
+.endpoints-nav ul {
+  list-style: none;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.endpoints-nav li {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--gray-200);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.endpoints-nav li:last-child {
+  border-bottom: none;
+}
+
+.endpoints-nav li::before {
+  content: "/";
+  color: var(--gray-400);
+}
+
+.endpoints-nav li:hover {
+  background-color: var(--gray-50);
+}
+
+.endpoints-nav li.active {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  font-weight: 600;
+  border-right: 3px solid var(--primary-color);
+}
+
+.hidden {
+  display: none;
+}
+
+/* 엔드포인트 상세 정보 */
+#endpoint-detail .detail-content {
+  padding: 1rem 0;
+}
+
+#detail-title {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: var(--gray-100);
+  border-radius: var(--radius);
+  font-family: "SF Mono", "Consolas", "Monaco", monospace;
+  margin-bottom: 1.5rem;
+  color: var(--gray-800);
+  font-weight: 500;
+  font-size: 1rem;
+  border-left: 3px solid var(--primary-color);
+}
+
+.detail-tabs {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--gray-200);
+  padding-bottom: 0;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--radius) var(--radius) 0 0;
+  color: var(--gray-500);
+  transition: all 0.2s;
+  position: relative;
+  bottom: -1px;
+}
+
+.tab-btn:hover {
+  color: var(--gray-800);
+}
+
+.tab-btn.active {
+  color: var(--primary-color);
+  font-weight: 600;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+  animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#response-preview {
+  background-color: var(--gray-100);
+  padding: 1.25rem;
+  border-radius: var(--radius);
+  font-family: "SF Mono", "Consolas", "Monaco", monospace;
+  white-space: pre-wrap;
+  overflow: auto;
+  max-height: 400px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--gray-800);
+  border: 1px solid var(--gray-200);
+}
+
+/* 테스트 폼 */
+.test-form {
+  padding: 1.5rem;
+  background-color: var(--gray-50);
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-200);
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--gray-700);
+  font-size: 0.875rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  color: var(--gray-800);
+  transition: all 0.2s;
+  background-color: white;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.form-group textarea {
+  min-height: 120px;
+  font-family: "SF Mono", "Consolas", "Monaco", monospace;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.test-response-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed var(--gray-200);
+}
+
+#test-status {
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+}
+
+#test-status.success {
+  color: var(--success-color);
+  background-color: rgba(16, 185, 129, 0.1);
+}
+
+#test-status.error {
+  color: var(--danger-color);
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+#test-time {
+  color: var(--gray-500);
+  font-size: 0.875rem;
+}
+
+#test-response {
+  background-color: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  font-family: "SF Mono", "Consolas", "Monaco", monospace;
+  white-space: pre-wrap;
+  overflow: auto;
+  max-height: 300px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--gray-800);
+}
+
+.param-field {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  align-items: center;
+}
+
+.param-field label {
+  min-width: 100px;
+  margin-bottom: 0 !important;
+}
+
+.param-field input {
+  flex: 1;
+}
+
+/* 푸터 */
+footer {
+  background-color: white;
+  padding: 1rem 2rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+  font-size: 0.875rem;
+  color: var(--gray-500);
+  border-top: 1px solid var(--gray-100);
+}
+
+footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .sidebar {
+    width: 100%;
+    position: static;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+
+  header {
+    padding: 1rem;
+  }
+
+  .test-form {
+    padding: 1rem;
+  }
+
+  #endpoints,
+  #endpoint-detail,
+  #logs {
+    padding: 1rem;
+  }
+}
+
+/* 다크 모드 (나중에 구현) */
+@media (prefers-color-scheme: dark) {
+  /* 다크 모드 스타일은 추후 구현 */
+}
+
+/* 확률 관련 스타일 */
+.probability-badge {
+  display: inline-block;
+  padding: 0.1rem 0.4rem;
+  background-color: var(--purple-500);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-size: 0.7rem;
+  margin-top: 0.25rem;
+  font-weight: 600;
+}
+
+.probability-container {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--primary-light);
+  border-radius: var(--radius);
+  border-left: 3px solid var(--primary-color);
+}
+
+.probability-bar {
+  height: 0.5rem;
+  width: 100%;
+  background-color: var(--gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin: 0.5rem 0;
+}
+
+.probability-fill {
+  height: 100%;
+  background-color: var(--primary-color);
+  border-radius: var(--radius-lg);
+}
+
+.probability-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--gray-600);
+}
+
+.response-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.response-tab {
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.response-tab.success {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--success-color);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.response-tab.failure {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--danger-color);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.response-tab.active {
+  background-color: white;
+  box-shadow: var(--shadow-sm);
+}

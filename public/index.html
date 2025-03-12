@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mock API 대시보드</title>
+    <link rel="stylesheet" href="/style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔌</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>Mock <span>API</span> 대시보드</h1>
+      <div class="server-status">
+        <span id="status-indicator" class="connected"></span>
+        <span id="status-text">연결됨</span>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="sidebar">
+        <div class="controls">
+          <button id="reload-config" class="btn primary">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"
+              ></path>
+              <path d="M21 3v5h-5"></path>
+              <path
+                d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"
+              ></path>
+              <path d="M8 16H3v5"></path>
+            </svg>
+            설정 새로고침
+          </button>
+          <button id="clear-logs" class="btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 6h18"></path>
+              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+            </svg>
+            로그 지우기
+          </button>
+        </div>
+        <div class="endpoints-nav">
+          <h3>API 엔드포인트</h3>
+          <ul id="endpoint-nav-list">
+            <!-- 동적으로 생성될 내비게이션 -->
+          </ul>
+        </div>
+      </div>
+
+      <main>
+        <div id="endpoints">
+          <h2>엔드포인트</h2>
+          <table id="endpoint-table">
+            <thead>
+              <tr>
+                <th>경로</th>
+                <th>메서드</th>
+                <th>상태 코드</th>
+                <th>지연(ms)</th>
+                <th>작업</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div id="endpoint-detail" class="hidden">
+          <h2>엔드포인트 세부 정보</h2>
+          <div class="detail-content">
+            <div id="detail-title">-</div>
+            <div class="detail-tabs">
+              <button class="tab-btn active" data-tab="response">
+                응답 데이터
+              </button>
+              <button class="tab-btn" data-tab="test">API 테스트</button>
+            </div>
+            <div class="tab-content active" id="response-tab">
+              <pre id="response-preview"></pre>
+            </div>
+            <div class="tab-content" id="test-tab">
+              <div class="test-form">
+                <h4>API 요청 테스트</h4>
+                <div class="form-group">
+                  <label for="test-url">요청 URL:</label>
+                  <input type="text" id="test-url" readonly />
+                </div>
+                <div class="form-group" id="params-form">
+                  <label>경로 파라미터:</label>
+                  <div id="param-fields"></div>
+                </div>
+                <div class="form-group" id="body-form">
+                  <label for="test-body">요청 본문 (JSON):</label>
+                  <textarea
+                    id="test-body"
+                    placeholder="여기에 JSON 데이터를 입력하세요..."
+                  ></textarea>
+                </div>
+                <button id="test-btn" class="btn primary">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="m5 12 14-7-7 14v-7z"></path>
+                  </svg>
+                  요청 보내기
+                </button>
+                <div id="test-result" class="hidden">
+                  <h4>응답 결과:</h4>
+                  <div class="test-response-meta">
+                    <span id="test-status"></span>
+                    <span id="test-time"></span>
+                  </div>
+                  <pre id="test-response"></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="logs">
+          <h2>요청 로그</h2>
+          <pre id="log-output"></pre>
+        </div>
+      </main>
+    </div>
+
+    <footer>
+      <p>
+        Simple Mock API Server -
+        <a href="#" id="server-url">http://localhost:3000</a>
+        <span class="version">v1.0.0</span>
+      </p>
+    </footer>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/scripts.js"></script>
+  </body>
+</html>
