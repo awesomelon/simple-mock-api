@@ -1,6 +1,6 @@
 {
   "name": "@j-ho/apimock",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Simple mock API",
   "main": "index.js",
   "bin": {

@@ -24,7 +24,7 @@ Simple Mock API는 개발 및 테스트 환경에서 사용할 수 있는 가벼
 1. 저장소 복제:
 
 ```bash
-git clone https://github.com/yourusername/simple-mock-api.git
+git clone https://github.com/awesomelon/simple-mock-api.git
 cd simple-mock-api
 ```
 
@@ -34,6 +34,12 @@ cd simple-mock-api
 npm install
 ```
 
+3. 전역 설치(선택 사항):
+
+```bash
+npm install -g @j-ho/apimock
+```
+
 ## 사용 방법
 
 ### 서버 시작
@@ -41,13 +47,19 @@ npm install
 기본 설정으로 서버 시작:
 
 ```bash
-node index.js start
+apimock start
+```
+
+또는 로컬 설치의 경우:
+
+```bash
+npx apimock start
 ```
 
 사용자 지정 포트 및 구성 파일로 시작:
 
 ```bash
-node index.js start -p 8080 -c custom-config.yml
+apimock start -p 8080 -c custom-config.yml
 ```
 
 ### 엔드포인트 구성
