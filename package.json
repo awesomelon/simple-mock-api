@@ -1,10 +1,10 @@
 {
-  "name": "@j-ho/simple-mock-api",
+  "name": "@j-ho/apimock",
   "version": "1.0.0",
   "description": "Simple mock API",
   "main": "index.js",
   "bin": {
-    "simple-mock-api": "./bin/cli.js"
+    "apimock": "./bin/cli.js"
   },
   "repository": {
     "type": "git",
